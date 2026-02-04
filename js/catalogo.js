@@ -1,4 +1,4 @@
-const API_URL = "COLE_AQUI_SEU_LINK_DA_API"; // depois eu te ajudo a colocar
+const API_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjcJ46K8Rz7jxkl386WvJCb7EldFf8CYdqtFFQnx-u3K_2c3PPXn6ORxng6Ch7uijdbkc-9jxExipc8GH33spzWzmwKPPAI6PfCxQ9DjoJ3it4YlSDpDB4LgoCCmlEw_g2But26X0hdBKlcwD1zB57h72Eld4TJFgVJ6-luRIEYdE37WH61uU3y8eLOwlkLa611l7lA8aiTLiPO1fmu7MS0llBAtOngOhT_hM4qRufJkIm2H8QEXvRvA0vf9riplqvKEKpaA_ijEA62c6RC4i9D_og34g&lib=MKwTSaAW_9Mw0X8fiDPHhQhPNnzvyV8Oh"; // depois eu te ajudo a colocar
 
 fetch(API_URL)
   .then(res => res.json())
