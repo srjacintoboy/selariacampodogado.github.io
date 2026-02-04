@@ -60,4 +60,45 @@ const totalEstoque=document.getElementById("total-estoque");
 function renderProducts(list){container.innerHTML="";if(list.length===0){noProducts.style.display="block";}else{noProducts.style.display="none";}
 list.forEach(p=>{const card=document.createElement("div");card.className="product";card.innerHTML=`
 <img src="${p["Imagem URL"]}" alt="${p["Nome do Produto"]}">
-<h3>${p["Nome do Prod]()
+<h3>${p["Nome do Produto"]}</h3>
+<p><strong>Categoria:</strong> ${p["Categoria"]}</p>
+<p><strong>Cor:</strong> ${p["Cor"]} | <strong>Tamanho:</strong> ${p["Tamanho"]}</p>
+<p>${p["Descrição"]}</p>
+<strong>R$ ${p["Preço (R$)"]}</strong>
+<div>
+<a href="${p["Link WhatsApp"]}" target="_blank">Comprar no WhatsApp</a>
+<a href="${p["Link Shopee"]}" target="_blank">Shopee</a>
+</div>`;container.appendChild(card);});
+totalProdutos.textContent=list.length;
+totalAtivos.textContent=list.filter(p=>p.Status==="ATIVO").length;
+totalCategorias.textContent=[...new Set(list.map(p=>p.Categoria))].length;
+totalEstoque.textContent=list.reduce((acc,p)=>acc+Number(p["Estoque Total"]||0),0);
+}
+
+function populateFilters(){const categories=[...new Set(produtos.map(p=>p.Categoria))];const colors=[...new Set(produtos.map(p=>p.Cor))];
+const sizes=[...new Set(produtos.map(p=>p.Tamanho))];const brands=[...new Set(produtos.map(p=>p.Marca))];
+categories.forEach(c=>filterCategory.appendChild(new Option(c,c)));
+colors.forEach(c=>filterColor.appendChild(new Option(c,c)));
+sizes.forEach(s=>filterSize.appendChild(new Option(s,s)));
+brands.forEach(b=>filterBrand.appendChild(new Option(b,b));
+}
+
+function applyFilters(){let filtered=produtos;const cat=filterCategory.value.toLowerCase();
+const status=filterStatus.value.toLowerCase();const color=filterColor.value.toLowerCase();const size=filterSize.value.toLowerCase();const brand=filterBrand.value.toLowerCase();
+const search=searchInput.value.toLowerCase();
+filtered=filtered.filter(p=>(!cat||p.Categoria.toLowerCase()===cat)&&(!status||p.Status.toLowerCase()===status)&&(!color||p.Cor.toLowerCase()===color)&&(!size||p.Tamanho.toLowerCase()===size)&&(!brand||p.Marca.toLowerCase()===brand)&&(!search||p["Nome do Produto"].toLowerCase().includes(search)));
+if(sortPrice.value==="asc"){filtered.sort((a,b)=>a["Preço (R$)"]-b["Preço (R$)"]);}else if(sortPrice.value==="desc"){filtered.sort((a,b)=>b["Preço (R$)"]-a["Preço (R$)"]);}renderProducts(filtered);
+}
+
+fetch(API_URL).then(res=>res.json()).then(data=>{produtos=data;populateFilters();renderProducts(produtos);}).catch(err=>console.error(err));
+
+filterCategory.addEventListener("change",applyFilters);
+filterStatus.addEventListener("change",applyFilters);
+filterColor.addEventListener("change",applyFilters);
+filterSize.addEventListener("change",applyFilters);
+filterBrand.addEventListener("change",applyFilters);
+sortPrice.addEventListener("change",applyFilters);
+searchInput.addEventListener("input",applyFilters);
+</script>
+</body>
+</html>
