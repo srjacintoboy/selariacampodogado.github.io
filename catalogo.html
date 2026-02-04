@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo Selaria Campo do Gado</title>
+<title>Catálogo - Selaria Campo do Gado</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -12,9 +12,9 @@
 body {
   font-family: 'Poppins', sans-serif;
   background: url('./img/fundo.png') center/cover no-repeat;
-  color: #2b1d12;
   margin: 0;
   padding: 0;
+  color: #2b1d12;
 }
 header {
   text-align: center;
@@ -35,40 +35,28 @@ header h1 {
 .filters {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 10px;
   padding: 20px;
   background: rgba(0,0,0,0.3);
 }
-.filters input[type="text"] {
+.filters input, .filters select {
   padding: 8px 12px;
   border-radius: 8px;
   border: none;
-  width: 200px;
-}
-.filters select {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: none;
-}
-.stats {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #fff;
-  font-weight: 600;
+  font-size: 1rem;
 }
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
 }
 .product-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255,255,255,0.9);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   transition: transform 0.3s;
 }
 .product-card:hover {
@@ -87,6 +75,11 @@ header h1 {
   margin: 0 10px 10px;
   font-size: 0.9rem;
 }
+.product-card .price {
+  font-weight: 600;
+  color: #8b6b3f;
+  margin-bottom: 10px;
+}
 .product-card .links {
   display: flex;
   justify-content: center;
@@ -100,7 +93,6 @@ header h1 {
   color: #2b1d12;
   border-radius: 8px;
   font-weight: 600;
-  transition: 0.3s;
 }
 .product-card .links a:hover {
   background: #8b6b3f;
@@ -131,10 +123,7 @@ footer {
   </select>
 </div>
 
-<div class="stats" id="stats">Total de produtos: 0</div>
-
 <div class="products" id="productsContainer">
-  <!-- Produtos via JS -->
 </div>
 
 <footer>
@@ -142,94 +131,56 @@ footer {
 </footer>
 
 <script>
-// Lista de produtos de exemplo
+// Lista de produtos
 const products = [
-  {
-    name: "Sela de Couro Tradicional",
-    category: "selas",
-    desc: "Sela artesanal em couro legítimo, conforto e durabilidade.",
-    img: "./img/prod1.jpg",
-    wpp: "https://wa.me/5575999975656",
-    shopee: "#"
-  },
-  {
-    name: "Rédea Rústica Premium",
-    category: "rédeas",
-    desc: "Rédea resistente e elegante, perfeita para cavalos fortes.",
-    img: "./img/prod2.jpg",
-    wpp: "https://wa.me/5575999975656",
-    shopee: "#"
-  },
-  {
-    name: "Arreio Completo",
-    category: "arreios",
-    desc: "Conjunto completo de arreios de couro, acabamento impecável.",
-    img: "./img/prod3.jpg",
-    wpp: "https://wa.me/5575999975656",
-    shopee: "#"
-  },
-  {
-    name: "Sela Luxo Cavalo Quarto de Milha",
-    category: "selas",
-    desc: "Sela confortável, design moderno, perfeita para provas e lazer.",
-    img: "./img/prod4.jpg",
-    wpp: "https://wa.me/5575999975656",
-    shopee: "#"
-  },
-  {
-    name: "Peitoral de Couro",
-    category: "outros",
-    desc: "Peitoral resistente e elegante, ideal para doma e passeios.",
-    img: "./img/prod5.jpg",
-    wpp: "https://wa.me/5575999975656",
-    shopee: "#"
-  },
-  {
-    name: "Cabeçada Tradicional",
-    category: "arreios",
-    desc: "Cabeçada de couro com costura reforçada, estilo clássico.",
-    img: "./img/prod6.jpg",
-    wpp: "https://wa.me/5575999975656",
-    shopee: "#"
-  }
+  {name: "Sela Premium Couro", category:"selas", desc:"Couro legítimo, costura reforçada", price:"R$ 1890", img:"./img/prod1.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"},
+  {name: "Rédea Tradicional", category:"rédeas", desc:"Rédea resistente e elegante", price:"R$ 350", img:"./img/prod2.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"},
+  {name: "Arreio Completo", category:"arreios", desc:"Conjunto completo de arreios de couro", price:"R$ 1200", img:"./img/prod3.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"},
+  {name: "Sela Luxo Quarto de Milha", category:"selas", desc:"Design moderno, confortável", price:"R$ 2200", img:"./img/prod4.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"},
+  {name: "Peitoral de Couro", category:"outros", desc:"Resistente e elegante", price:"R$ 500", img:"./img/prod5.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"},
+  {name: "Cabeçada Tradicional", category:"arreios", desc:"Couro reforçado, estilo clássico", price:"R$ 400", img:"./img/prod6.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"},
+  {name: "Sela Infantil", category:"selas", desc:"Sela pequena para crianças", price:"R$ 900", img:"./img/prod7.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"},
+  {name: "Rédea Luxo", category:"rédeas", desc:"Couro premium, acabamento fino", price:"R$ 450", img:"./img/prod8.jpg", wpp:"https://wa.me/5575999975656", shopee:"#"}
 ];
 
+// Função para renderizar
 const container = document.getElementById('productsContainer');
-const stats = document.getElementById('stats');
+const searchInput = document.getElementById('searchInput');
+const categoryFilter = document.getElementById('categoryFilter');
 
-function displayProducts(list) {
-  container.innerHTML = '';
-  list.forEach(p => {
+function renderProducts(list){
+  container.innerHTML = "";
+  list.forEach(p=>{
     container.innerHTML += `
-    <div class="product-card">
-      <img src="${p.img}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <div class="links">
-        <a href="${p.wpp}" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        <a href="${p.shopee}" target="_blank"><i class="fas fa-store"></i> Shopee</a>
+      <div class="product-card">
+        <img src="${p.img}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="price">${p.price}</div>
+        <div class="links">
+          <a href="${p.wpp}" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="${p.shopee}" target="_blank"><i class="fas fa-store"></i> Shopee</a>
+        </div>
       </div>
-    </div>
     `;
   });
-  stats.textContent = `Total de produtos: ${list.length}`;
 }
 
-displayProducts(products);
+renderProducts(products);
 
 // Filtros
-document.getElementById('categoryFilter').addEventListener('change', e => {
-  const val = e.target.value;
-  const filtered = val === 'all' ? products : products.filter(p => p.category === val);
-  const searchVal = document.getElementById('searchInput').value.toLowerCase();
-  displayProducts(filtered.filter(p => p.name.toLowerCase().includes(searchVal)));
+searchInput.addEventListener("input", ()=>{
+  const val = searchInput.value.toLowerCase();
+  const cat = categoryFilter.value;
+  const filtered = products.filter(p=>p.name.toLowerCase().includes(val) && (cat=="all" || p.category==cat));
+  renderProducts(filtered);
 });
 
-document.getElementById('searchInput').addEventListener('input', e => {
-  const val = e.target.value.toLowerCase();
-  const cat = document.getElementById('categoryFilter').value;
-  const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
-  displayProducts(filtered.filter(p => p.name.toLowerCase().includes(val)));
+categoryFilter.addEventListener("change", ()=>{
+  const val = searchInput.value.toLowerCase();
+  const cat = categoryFilter.value;
+  const filtered = products.filter(p=>p.name.toLowerCase().includes(val) && (cat=="all" || p.category==cat));
+  renderProducts(filtered);
 });
 </script>
 
